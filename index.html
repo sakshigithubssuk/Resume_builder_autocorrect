@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Builder</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+
+  <body>
+    <div class="container">
+      <div class="form-section">
+        <h2>Enter Your Personal details</h2>
+        <div class="personal-details">
+          <input
+            type="text"
+            id="name"
+            placeholder="Full Name"
+            oninput="updateResume()"
+          />
+          <div>
+            <input
+              type="email"
+              id="email"
+              placeholder="Email Address"
+              oninput="updateResume()"
+            />
+            <input
+              type="number"
+              id="mobile"
+              placeholder="Contact Number"
+              oninput="updateResume()"
+            />
+          </div>
+          <input
+            type="url"
+            id="linkdien"
+            placeholder="LinkedIn Link"
+            oninput="updateResume()"
+          />
+          <input
+            type="url"
+            id="github"
+            placeholder="GitHub Link"
+            oninput="updateResume();"
+          />
+        </div>
+
+        <div class="education">
+          <h2>Enter your Education</h2>
+          <div id="education-container">
+            <div class="edu-entry">
+              <input
+                type="text"
+                class="edu-degree"
+                placeholder="Degree (e.g. B.Tech in CSE)"
+                oninput="updateResume()"
+              />
+              <input
+                type="text"
+                class="edu-stream"
+                placeholder="Board"
+                oninput="updateResume()"
+              />
+              <input
+                type="text"
+                class="edu-score"
+                placeholder="Percentage / CGPA"
+                oninput="updateResume()"
+              />
+              <input
+                type="number"
+                class="edu-year"
+                placeholder="Year"
+                oninput="updateResume()"
+              />
+            </div>
+          </div>
+          <button type="button" onclick="addEducation()">
+            + Add Education
+          </button>
+        </div>
+
+        <div class="skills">
+          <h2>Enter Your Skills</h2>
+          <div id="skills-container"></div>
+          <button type="button" onclick="addSkillCategory()">
+            + Add Skill Category
+          </button>
+        </div>
+
+        <div class="projects">
+          <h2>Enter your Projects</h2>
+          <div id="project-container">
+            <div class="project-entry">
+              <input
+                type="text"
+                class="project-title"
+                placeholder="Project Title"
+                oninput="updateResume()"
+              />
+              <textarea
+                class="project-desc"
+                placeholder="Description"
+                oninput="updateResume()"
+              ></textarea>
+              <input type="url" class="project-link" placeholder="Project Link (optional)" oninput="updateResume()">
+            </div>
+          </div>
+          <button type="button" onclick="addProjects()">+ Add Projects</button>
+         
+        </div>
+        <div class="Experience">
+          <h2>Enter your Experience</h2>
+          <div id="Experience-container">
+            <div class="exp-entry">
+              <input
+                type="text"
+                class="exp-title"
+                placeholder="company name"
+                oninput="updateResume()"
+              />
+              <textarea
+                class="exp-desc"
+                placeholder="Description"
+                oninput="updateResume()"
+              ></textarea>
+            </div>
+          </div>
+          <button type="button" onclick="addExperience()">
+            + Add Experience
+          </button>
+        </div>
+        <div class="achievments">
+          <h2>Enter your Achievements</h2>
+          <div id="achievment-container">
+            <input
+              type="text"
+              class="achievment-input"
+              placeholder="Achievement"
+              oninput="updateResume()"
+            />
+          </div>
+          <button type="button" onclick="addAchievment()">
+            + Add Achievements
+          </button>
+        </div>
+        <div>
+          <p class="auto-correct">Click on save button for autoCorrection</p>
+<button onclick="handleSave()">Save</button>
+
+        </div>
+      
+
+      </div>
+
+      <div class="preview-section">
+        <h2 class="wave-heading">
+          <span>W</span><span>e</span><span>l</span><span>c</span><span>o</span
+          ><span>m</span><span>e</span> <span>&nbsp;</span><span>t</span
+          ><span>o</span><span>&nbsp;</span> <span>R</span><span>e</span
+          ><span>s</span><span>u</span><span>m</span><span>e</span>
+          <span>&nbsp;</span><span>B</span><span>u</span><span>i</span
+          ><span>l</span><span>d</span><span>e</span><span>r</span>
+        </h2>
+
+        <div class="resume-card">
+          <!-- Preview Info Section -->
+          <div id="preview-section">
+            <h2 id="preview-name">Your Name</h2>
+
+            <div class="row">
+              <span id="preview-email">
+                <strong></strong> your@email.com
+              </span>
+              <span id="preview-mobile">
+                <strong></strong> 1234567890
+              </span>
+            </div>
+
+            <div class="row">
+              <span id="preview-linkdien">
+                 
+              </span>
+              <span id="preview-github">
+               
+              </span>
+            </div>
+          </div>
+
+          <h3>EDUCATION</h3>
+          <ul id="preview-education"></ul>
+
+          <h3>SKILLS</h3>
+          <ul id="preview-skills"></ul>
+
+          <h3>EXPERIENCE</h3>
+          <ul id="preview-exp"></ul>
+
+          <h3>PROJECTS</h3>
+          <ul id="preview-projects"></ul>
+
+          <h3>ACHIEVEMENTS</h3>
+          <ul id="preview-achievements"></ul>
+        </div>
+
+        <button type="button" onclick="handleDownload()">Download CV ⬇</button>
+      </div>
+    </div>
+    <!-- Load html2pdf.bundle (contains html2canvas + jsPDF + glue) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <!-- Then your script that calls html2pdf() -->
+    <script src="script.js"></script>
+  </body>
+</html>
